@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>PIP-BOY 3000 - Monitoring</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="pip-boy">
+    <div class="overlay"></div>
+
+    <div class="screen-container">
+
+        <div class="top-nav">
+            <div class="nav-left">
+                <span class="active" onclick="switchTab('tab-temp', this)">TEMP</span>
+                <span onclick="switchTab('tab-usage', this)">UTILISATION</span>
+            </div>
+            <div class="nav-right">
+                <span onclick="switchTab('tab-options', this)">OPTIONS</span>
+            </div>
+        </div>
+
+        <div id="tab-temp" class="tab-content active">
+            <div class="vault-boy-wrapper">
+                <img src="{{ url_for('static', filename='robot_green.png') }}" class="robot-img" alt="Robot">
+
+                <div class="stat-block stat-head">
+                    <div class="stat-label">CPU TEMP <span id="t-cpu-val">0</span>°C</div>
+                    <div class="bar-container">
+                        <div class="bar-fill" id="t-cpu-bar"></div>
+                    </div>
+                </div>
+                <div class="stat-block stat-torso">
+                    <div class="stat-label">GPU TEMP <span id="t-gpu-val">0</span>°C</div>
+                    <div class="bar-container">
+                        <div class="bar-fill" id="t-gpu-bar"></div>
+                    </div>
+                </div>
+                <div class="stat-block stat-arm-l">
+                    <div class="stat-label">VRM <span id="t-vrm-val">0</span>°C</div>
+                    <div class="bar-container">
+                        <div class="bar-fill" id="t-vrm-bar"></div>
+                    </div>
+                </div>
+
+                <div class="stat-block stat-arm-r">
+                    <div class="main-stat">
+                        <div class="stat-label">SSD 1 <span id="t-ssd0-val">0</span>°C</div>
+                        <div class="bar-container">
+                            <div class="bar-fill" id="t-ssd0-bar"></div>
+                        </div>
+                    </div>
+                    <div class="sub-stats">
+                        <div class="sub-stat">
+                            <div class="sub-stat-label">SSD 2 <span id="t-ssd1-val">0</span>°C</div>
+                            <div class="sub-bar-container">
+                                <div class="bar-fill" id="t-ssd1-bar"></div>
+                            </div>
+                        </div>
+                        <div class="sub-stat">
+                            <div class="sub-stat-label">SSD 3 <span id="t-ssd2-val">0</span>°C</div>
+                            <div class="sub-bar-container">
+                                <div class="bar-fill" id="t-ssd2-bar"></div>
+                            </div>
+                        </div>
+                        <div class="sub-stat">
+                            <div class="sub-stat-label">SSD 4 <span id="t-ssd3-val">0</span>°C</div>
+                            <div class="sub-bar-container">
+                                <div class="bar-fill" id="t-ssd3-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-block stat-leg-l">
+                    <div class="stat-label">M-BOARD <span id="t-mb-val">0</span>°C</div>
+                    <div class="bar-container">
+                        <div class="bar-fill" id="t-mb-bar"></div>
+                    </div>
+                </div>
+                <div class="stat-block stat-leg-r">
+                    <div class="stat-label">SYSTEM <span id="t-sys-val">0</span>°C</div>
+                    <div class="bar-container">
+                        <div class="bar-fill" id="t-sys-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-usage" class="tab-content">
+            <div class="vault-boy-wrapper">
+                <img src="{{ url_for('static', filename='robot_green.png') }}" class="robot-img" alt="Robot">
+
+                <div class="stat-block stat-head">
+                    <div class="stat-label">CPU LOAD <span id="u-cpu-val">0</span>%</div>
+                    <div class="bar-container">
+                        <div class="bar-fill" id="u-cpu-bar"></div>
+                    </div>
+                </div>
+                <div class="stat-block stat-torso">
+                    <div class="stat-label">GPU LOAD <span id="u-gpu-val">0</span>%</div>
+                    <div class="bar-container">
+                        <div class="bar-fill" id="u-gpu-bar"></div>
+                    </div>
+                </div>
+                <div class="stat-block stat-arm-l">
+                    <div class="stat-label">RAM <span id="u-ram-val">0</span>%</div>
+                    <div class="bar-container">
+                        <div class="bar-fill" id="u-ram-bar"></div>
+                    </div>
+                </div>
+
+                <div class="stat-block stat-arm-r">
+                    <div class="main-stat">
+                        <div class="stat-label">SSD 1 <span id="u-ssd0-val">0</span>%</div>
+                        <div class="bar-container">
+                            <div class="bar-fill" id="u-ssd0-bar"></div>
+                        </div>
+                    </div>
+                    <div class="sub-stats">
+                        <div class="sub-stat">
+                            <div class="sub-stat-label">SSD 2 <span id="u-ssd1-val">0</span>%</div>
+                            <div class="sub-bar-container">
+                                <div class="bar-fill" id="u-ssd1-bar"></div>
+                            </div>
+                        </div>
+                        <div class="sub-stat">
+                            <div class="sub-stat-label">SSD 3 <span id="u-ssd2-val">0</span>%</div>
+                            <div class="sub-bar-container">
+                                <div class="bar-fill" id="u-ssd2-bar"></div>
+                            </div>
+                        </div>
+                        <div class="sub-stat">
+                            <div class="sub-stat-label">SSD 4 <span id="u-ssd3-val">0</span>%</div>
+                            <div class="sub-bar-container">
+                                <div class="bar-fill" id="u-ssd3-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-block stat-leg-l">
+                    <div class="stat-label">NET <span id="u-net-val">0</span>%</div>
+                    <div class="bar-container">
+                        <div class="bar-fill" id="u-net-bar"></div>
+                    </div>
+                </div>
+                <div class="stat-block stat-leg-r">
+                    <div class="stat-label">VRAM <span id="u-vram-val">0</span>%</div>
+                    <div class="bar-container">
+                        <div class="bar-fill" id="u-vram-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-options" class="tab-content">
+            <div class="options-menu">
+                <h1 style="margin-bottom: 40px; border-bottom: 1px solid;">COULEUR DU SYSTÈME</h1>
+
+                <button class="color-btn" style="color: #1aff80; border-color: #1aff80;"
+                    onclick="changeTheme('#1aff80', 'rgba(0, 255, 0, 0.03)', '0deg')">
+                    VERT CLASSIQUE
+                </button>
+
+                <button class="color-btn" style="color: #ffb641; border-color: #ffb641;"
+                    onclick="changeTheme('#ffb641', 'rgba(255, 182, 65, 0.03)', '-109deg')">
+                    AMBRE PIMP-BOY
+                </button>
+
+                <button class="color-btn" style="color: #2ecfff; border-color: #2ecfff;"
+                    onclick="changeTheme('#2ecfff', 'rgba(46, 207, 255, 0.03)', '45deg')">
+                    BLEU QUANTUM
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Fonction pour changer la couleur globale du thème
+        function changeTheme(hexColor, bgLineColor, imageHue) {
+            const root = document.documentElement;
+            root.style.setProperty('--theme-color', hexColor);
+            root.style.setProperty('--theme-bg-line', bgLineColor);
+            root.style.setProperty('--theme-hue', imageHue);
+        }
+
+        // Fonction pour basculer entre les onglets
+        function switchTab(tabId, element) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+
+            document.querySelectorAll('.top-nav span').forEach(nav => nav.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // Fonction de mise à jour des données depuis Flask
+        function updateStats() {
+            fetch('/api/stats')
+                .then(response => response.json())
+                .then(data => {
+                    // ---- MAJ ONGLET TEMPÉRATURES ----
+                    document.getElementById('t-cpu-val').innerText = data.temp.cpu;
+                    document.getElementById('t-cpu-bar').style.width = data.temp.cpu + '%';
+
+                    document.getElementById('t-gpu-val').innerText = data.temp.gpu;
+                    document.getElementById('t-gpu-bar').style.width = data.temp.gpu + '%';
+
+                    document.getElementById('t-vrm-val').innerText = data.temp.vrm;
+                    document.getElementById('t-vrm-bar').style.width = data.temp.vrm + '%';
+
+                    document.getElementById('t-mb-val').innerText = data.temp.mb;
+                    document.getElementById('t-mb-bar').style.width = data.temp.mb + '%';
+
+                    document.getElementById('t-sys-val').innerText = data.temp.sys;
+                    document.getElementById('t-sys-bar').style.width = data.temp.sys + '%';
+
+                    // ---- MAJ ONGLET UTILISATION ----
+                    document.getElementById('u-cpu-val').innerText = data.usage.cpu;
+                    document.getElementById('u-cpu-bar').style.width = data.usage.cpu + '%';
+
+                    document.getElementById('u-gpu-val').innerText = data.usage.gpu;
+                    document.getElementById('u-gpu-bar').style.width = data.usage.gpu + '%';
+
+                    document.getElementById('u-ram-val').innerText = data.usage.ram;
+                    document.getElementById('u-ram-bar').style.width = data.usage.ram + '%';
+
+                    document.getElementById('u-net-val').innerText = data.usage.net;
+                    document.getElementById('u-net-bar').style.width = data.usage.net + '%';
+
+                    document.getElementById('u-vram-val').innerText = data.usage.vram;
+                    document.getElementById('u-vram-bar').style.width = data.usage.vram + '%';
+
+                    // ---- MAJ DES SSD (Boucle) ----
+                    for (let i = 0; i < 4; i++) {
+                        document.getElementById(`t-ssd${i}-val`).innerText = data.temp.ssds[i];
+                        document.getElementById(`t-ssd${i}-bar`).style.width = data.temp.ssds[i] + '%';
+
+                        document.getElementById(`u-ssd${i}-val`).innerText = data.usage.ssds[i];
+                        document.getElementById(`u-ssd${i}-bar`).style.width = data.usage.ssds[i] + '%';
+                    }
+                })
+                .catch(error => console.error('Erreur de récupération des données:', error));
+        }
+
+        // Lance la mise à jour toutes les secondes
+        setInterval(updateStats, 1000);
+        // Appel initial pour ne pas attendre 1 seconde au chargement
+        updateStats();
+    </script>
+</body>
+
+</html>
