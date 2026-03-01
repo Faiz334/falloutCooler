@@ -147,7 +147,7 @@ body {
 }
 
 .stat-torso {
-    top: 210px;
+    top: 400px;
     left: 135px;
 }
 
@@ -157,12 +157,12 @@ body {
 }
 
 .stat-leg-l {
-    bottom: 70px;
+    bottom: 150px;
     left: -10px;
 }
 
 .stat-leg-r {
-    bottom: 70px;
+    bottom: 150px;
     right: -10px;
 }
 
